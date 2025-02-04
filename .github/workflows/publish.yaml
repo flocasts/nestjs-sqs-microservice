@@ -1,7 +1,7 @@
 # This is a basic workflow to publish a new version of this package.
 # It should be triggered on the creation of a new tag.
 # It will update the package.json version and publish the package to npm.
-# It will finally push a new commit to the master branch that includes the updated package.json version.
+# It will finally push a new commit to the main branch that includes the updated package.json version.
 name: Publish Package
 
 on:
@@ -74,7 +74,7 @@ jobs:
             - name: Push updated package.json
               uses: stefanzweifel/git-auto-commit-action@v5
               with:
-                  branch: master
+                  branch: main
                   commit_message: 'Update package.json version to ${{ github.ref_name }}'
                   commit_options: '--no-verify'
                   commit_user_name: 'GitHub Actions'
