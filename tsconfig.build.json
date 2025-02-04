@@ -1,0 +1,5 @@
+{
+    "allowJs": true,
+    "exclude": ["src/**/*.test.ts", "test/**/*.ts"],
+    "extends": "./tsconfig.json"
+}

@@ -1,0 +1,36 @@
+{
+    "name": "@flocasts/nestjs-sqs-microservice",
+    "version": "0.0.1",
+    "description": "A NestJS microservice Strategy for SQS",
+    "type": "module",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "tsc",
+        "lint": "eslint --fix -c eslint.config.js",
+        "start-test-server": "npm run build && node dist/test/test.hybrid-app.js"
+    },
+    "keywords": [
+        "nestjs",
+        "sqs",
+        "microservice",
+        "aws"
+    ],
+    "author": "harriet.f.waters@gmail.com",
+    "license": "ISC",
+    "dependencies": {
+        "@nestjs/microservices": "^11.0.7",
+        "@types/node": "^22.13.1",
+        "sqs-consumer": "^11.5.0"
+    },
+    "devDependencies": {
+        "@eslint/js": "^9.19.0",
+        "@nestjs/platform-express": "^11.0.7",
+        "eslint": "^9.19.0",
+        "eslint-config-prettier": "^10.0.1",
+        "globals": "^15.14.0",
+        "typescript": "^5.7.3",
+        "typescript-eslint": "^8.23.0",
+        "zod": "^3.24.1"
+    }
+}
