@@ -10,7 +10,7 @@ based experience for interacting with SQS queues!
 
 | Name                      | Type               | Description                                         | Options                                                                               | Batch Compatible   |
 | ------------------------- | ------------------ | --------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------ |
-| **@SqsMessage**           | Method Decorator   | Marks a Controller method as an SQS Message Handler | [ConsumerOptions](https://bbc.github.io/sqs-consumer/interfaces/ConsumerOptions.html) | :white_check_mark: |
+| **@SqsMessageHandler**    | Method Decorator   | Marks a Controller method as an SQS Message Handler | [ConsumerOptions](https://bbc.github.io/sqs-consumer/interfaces/ConsumerOptions.html) | :white_check_mark: |
 | **@SqsMessageBody**       | Property Decorator | Extracts the message body from the SQS message      | Body key (optional)                                                                   | :x:                |
 | **@SqsMessageId**         | Property Decorator | Extracts the message ID from the SQS message        |                                                                                       | :x:                |
 | **@SqsAttributes**        | Property Decorator | Extracts attributes from the SQS message            | Attribute Key (optional)                                                              | :x:                |
@@ -46,7 +46,7 @@ bootstrap();
 
 #### Standalone Microservice Applications
 
-Sometimes you do just need a microservice, though, and here's what that looks like:
+Sometimes you do just need a microservice though, and here's what that looks like:
 
 ```typescript
 import { NestFactory } from '@nestjs/core';
@@ -74,7 +74,7 @@ Here's the controller from our tests ([check here for the full thing!](./test/te
 export class TestSqsController {
     private readonly logger = new Logger(TestSqsController.name);
 
-    @SqsMessageDecorator({
+    @SqsMessageHandler({
         queueUrl: process.env.SQS_QUEUE_URL!,
         attributeNames: ['All'],
     })
@@ -100,7 +100,7 @@ We also support the batch syntax, as used by `sqs-consumer`:
 export class TestSqsController {
     private readonly logger = new Logger(TestSqsController.name);
 
-    @SqsMessageDecorator({
+    @SqsMessageHandler({
         queueUrl: process.env.SQS_QUEUE_URL!,
         batch: true,
     })
