@@ -20,12 +20,12 @@
     "license": "ISC",
     "dependencies": {
         "@nestjs/microservices": "^11.0.7",
-        "@types/node": "^22.13.1",
         "sqs-consumer": "^11.5.0"
     },
     "devDependencies": {
         "@eslint/js": "^9.19.0",
         "@nestjs/platform-express": "^11.0.7",
+        "@types/node": "^22.13.1",
         "eslint": "^9.19.0",
         "eslint-config-prettier": "^10.0.1",
         "globals": "^15.14.0",
