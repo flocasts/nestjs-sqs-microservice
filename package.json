@@ -1,6 +1,6 @@
 {
     "name": "@flocasts/nestjs-sqs-microservice",
-    "version": "0.0.1",
+    "version": "0.1.1",
     "description": "A NestJS microservice Strategy for SQS",
     "type": "module",
     "main": "index.js",
