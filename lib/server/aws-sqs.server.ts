@@ -1,13 +1,13 @@
 import { Message, SQSClient } from '@aws-sdk/client-sqs';
 import { CustomTransportStrategy, ReadPacket, Server } from '@nestjs/microservices';
 import { firstValueFrom, isObservable } from 'rxjs';
-import { Consumer, Events } from 'sqs-consumer';
+import { Consumer } from 'sqs-consumer';
 import { SqsMessageHandlerOptions, SQSQueueEventHandlerOptions } from '../common/index.js';
 import {
-    SQSQueueEventArguments,
     SingleOrBatchMessage,
     SQSEventHandler,
     SQSMessageHandler,
+    SQSQueueEventArguments,
 } from '../common/interfaces.js';
 import { AwsSQSEventContext, AwsSQSMessageContext } from '../ctx-host/index.js';
 import { SqsEventDeserializer, SqsMessageDeserializer } from '../deserializers/index.js';
