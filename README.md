@@ -109,3 +109,35 @@ export class TestSqsController {
     }
 }
 ```
+
+N.B. Each queue url can only have _one_ message handler, regardless of whether is is batched. After the initial handler is detected, any subsequent handlers will result in an error.
+
+#### Queue Events
+
+In addition to messages, we also expose other events available from the `sqs-consumer` library,
+here's an example.
+
+```typescript
+@Controller()
+export class TestSqsController {
+    private readonly logger = new Logger(TestSqsController.name);
+
+    @SqsMessageHandler({
+        queueUrl: process.env.SQS_QUEUE_URL!,
+        attributeNames: ['All'],
+    })
+    public async messageHandler(): Promise<void> {
+        this.logger.log({ msg: 'A message was received!' });
+    }
+
+    @SqsQueueEventHandler({
+        queueUrl: process.env.SQS_QUEUE_URL!,
+        event: 'error',
+    })
+    public async eventHandler([error, message]: Events['error']): Promise<void> {
+        this.logger.log({ msg: 'An event was received!', error, message });
+    }
+}
+```
+
+N.B. Only one handler for each event can be applied _per queue_.
