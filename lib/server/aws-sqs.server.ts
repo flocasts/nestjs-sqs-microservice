@@ -1,5 +1,6 @@
 import { Message, SQSClient } from '@aws-sdk/client-sqs';
 import { CustomTransportStrategy, ReadPacket, Server } from '@nestjs/microservices';
+import { IntrinsicException } from '@nestjs/common';
 import { firstValueFrom, isObservable } from 'rxjs';
 import { Consumer } from 'sqs-consumer';
 import { SqsMessageHandlerOptions, SQSQueueEventHandlerOptions } from '../common/index.js';
@@ -42,10 +43,9 @@ export class AwsSQSServer extends Server implements CustomTransportStrategy {
             const sqsOptions: SqsMessageHandlerOptions = handler.extras?.sqsOptions;
             if (sqsOptions) {
                 if (this.handlersByQueueUrl.has(sqsOptions.queueUrl)) {
-                    this.logger.warn(
-                        `Attempting to bind multiple handlers to the same queueUrl ${sqsOptions.queueUrl}, ignoring subsequent handlers`,
+                    throw new IntrinsicException(
+                        `Attempting to bind multiple handlers to the same queueUrl ${sqsOptions.queueUrl}!`,
                     );
-                    continue;
                 }
                 this.handlersByQueueUrl.set(sqsOptions.queueUrl, handler);
                 this.logger.log(`Configuring handler to queue ${sqsOptions.queueUrl}`);
@@ -81,18 +81,16 @@ export class AwsSQSServer extends Server implements CustomTransportStrategy {
                 const eventSet = this.eventsByQueueUrl.get(queueUrl)!;
 
                 if (eventSet.has(event)) {
-                    this.logger.warn(
-                        `Attempting to bind multiple handlers to the same ${event} event for ${queueUrl}, ignoring subsequent handlers`,
+                    throw new IntrinsicException(
+                        `Attempting to bind multiple handlers to the same ${event} event for ${queueUrl}!`,
                     );
-                    continue;
                 }
 
                 const consumer = this.sqsConsumersByQueueUrl.get(queueUrl);
                 if (!consumer) {
-                    this.logger.warn(
-                        `Attempting to bind ${event} event handler to non-existent queue ${queueUrl}, ignoring handler`,
+                    throw new IntrinsicException(
+                        `Attempting to bind ${event} event handler to non-existent queue ${queueUrl}`,
                     );
-                    continue;
                 }
 
                 this.logger.log(`Configuring ${event} event handler for queue ${queueUrl}`);
